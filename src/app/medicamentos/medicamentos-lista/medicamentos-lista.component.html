@@ -1,3 +1,64 @@
-<p>
-  medicamentos-lista works!
-</p>
+<div class="mt-4">
+  <div class="card">
+    <div class="card-header">
+      <div class="d-flex">
+        <div id="medicamentos" class="flex-fill">
+          <h3>Medicamentos</h3>
+        </div>
+        <button class="btn btn-primary text-upercase mr-1" [routerLink]="['add']">
+          <span class="mr-1">Add</span>
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+        <button class="btn btn-danger text-upercase" [routerLink]="['add']">
+          <span class="mr-1">Delete</span>
+          <i class="fa fa-trash" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox">
+                  <span class="cr"><i class="cr-icon fa fa-check" aria-hidden="true"></i></span>
+                </label>
+              </div>
+            </th>
+            <th scope="col">Name</th>
+            <th scope="col">Dosage</th>
+            <th scope="col">Due date</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox">
+                  <span class="cr"><i class="cr-icon fa fa-check" aria-hidden="true"></i></span>
+                </label>
+              </div>
+            </th>
+            <td>Mark</td>
+            <td>Otto</td>
+            <td>Otto</td>
+            <td>
+              <button class="btn btn-warning mr-1">
+                <span class="mr-1">Edit</span>
+                <i class="fa fa-pencil-square" aria-hidden="true"></i>
+              </button>
+              <button class="btn btn-danger">
+                <span class="mr-1">Delete</span>
+                <i class="fa fa-trash" aria-hidden="true"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
