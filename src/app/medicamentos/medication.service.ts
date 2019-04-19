@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable, throwError, forkJoin } from 'rxjs';
-import { catchError, map, concatAll } from 'rxjs/operators';
+import { catchError, map, concatAll, delay } from 'rxjs/operators';
 
 import { Medication } from './medication';
 import { environment } from 'src/environments/environment';
@@ -20,6 +20,7 @@ export class MedicationService {
   public getAllMedication(): Observable<Array<Medication>> {
     return this.http.get<Array<Medication>>(this.URI, { responseType: 'json' })
       .pipe(
+        delay(2000),
         map(res => res),
         catchError(this.handleError)
       );

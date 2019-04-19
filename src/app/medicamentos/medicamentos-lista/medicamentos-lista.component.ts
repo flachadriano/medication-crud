@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Medication } from '../medication';
-import { MedicationService } from '../medicamentos.service';
+import { MedicationService } from '../medication.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-medicamentos-lista',
   templateUrl: './medicamentos-lista.component.html',
   styleUrls: ['./medicamentos-lista.component.scss']
 })
-export class MedicamentosListaComponent implements OnInit {
+export class MedicamentosListaComponent implements OnInit, OnDestroy {
 
   public selectedAll: any;
+  public sub: Subscription;
+  public loading: boolean;
   private _medication: Array<Medication>;
   private check: Array<number | string>;
 
@@ -18,10 +21,15 @@ export class MedicamentosListaComponent implements OnInit {
   ) {
     this._medication = [];
     this.check = [];
+    this.loading = false;
   }
 
   public ngOnInit(): void {
     this.onRequest();
+  }
+
+  public ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
   public get medication(): Array<Medication> {
@@ -50,9 +58,11 @@ export class MedicamentosListaComponent implements OnInit {
   }
 
   private onRequest(): void {
-    this.medicationService.getAllMedication().subscribe(med => {
+    this.sub =  this.medicationService.getAllMedication().subscribe(med => {
       this._medication = med;
+      this.loading = true;
     }, (erro: Error) => {
+      this.loading = false;
       console.log(erro);
     });
   }

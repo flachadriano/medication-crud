@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'medication';
+  public default: string;
+
+  constructor() {
+    this.default = '../assets/images/logo-1.png';
+  }
 }
