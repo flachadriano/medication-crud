@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError, forkJoin } from 'rxjs';
 import { catchError, map, concatAll, delay, take } from 'rxjs/operators';
 
-import { Medication } from './medication';
-import { environment } from 'src/environments/environment';
+import { Medication } from '../shared/interface/medication';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 

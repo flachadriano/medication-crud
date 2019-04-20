@@ -1,13 +1,13 @@
 import { FormBuilder, ValidationErrors, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { map, switchMap } from 'rxjs/operators';
 
 import { Form } from '../../shared/form';
 import { MedicationService } from '../medication.service';
-import { SharedService } from '../../shared/shared.service';
-import { ActivatedRoute } from '@angular/router';
-import { Medication } from '../medication';
+import { SharedService } from '../../shared/services/shared.service';
+
+import { Medication } from '../../shared/interface/medication';
 
 @Component({
   selector: 'app-medication-form',

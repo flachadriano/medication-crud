@@ -3,10 +3,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { Subscription } from 'rxjs';
 
-import { Medication } from '../medication';
+import { Medication } from '../../shared/interface/medication';
+import { Cols } from '../../shared/interface/cols';
+
 import { MedicationService } from '../medication.service';
-import { SharedService } from 'src/app/shared/shared.service';
-import { Cols } from '../cols';
+import { SharedService } from '../../shared/services/shared.service';
 @Component({
   selector: 'app-medicamentos-lista',
   templateUrl: './medicamentos-lista.component.html',

@@ -1,5 +1,5 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Medication } from '../medicamentos/medication';
+import { Medication } from './interface/medication';
 
 export class Form {
 

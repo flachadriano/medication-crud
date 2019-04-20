@@ -2,7 +2,7 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/r
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
-import { Medication } from '../medication';
+import { Medication } from '../../shared/interface/medication';
 import { MedicationService } from '../medication.service';
 
 @Injectable({
