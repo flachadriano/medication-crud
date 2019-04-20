@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Medication } from '../medication';
-import { MedicationService } from '../medication.service';
 import { Subscription } from 'rxjs';
 
+import { Medication } from '../medication';
+import { MedicationService } from '../medication.service';
+import { SharedService } from 'src/app/shared/shared.service';
 @Component({
   selector: 'app-medicamentos-lista',
   templateUrl: './medicamentos-lista.component.html',
@@ -13,11 +14,12 @@ export class MedicamentosListaComponent implements OnInit, OnDestroy {
   public selectedAll: any;
   public sub: Subscription;
   public loading: boolean;
-  private _medication: Array<Medication>;
   private check: Array<number | string>;
+  private _medication: Array<Medication>;
 
   constructor(
-    private medicationService: MedicationService
+    private medicationService: MedicationService,
+    private sharedService: SharedService
   ) {
     this._medication = [];
     this.check = [];
@@ -61,10 +63,14 @@ export class MedicamentosListaComponent implements OnInit, OnDestroy {
     this.sub =  this.medicationService.getAllMedication().subscribe(med => {
       this._medication = med;
       this.loading = true;
-    }, (erro: Error) => {
-      this.loading = false;
+    }, (erro) => {
       console.log(erro);
+      this.loading = true;
+      this.hanlderErro(erro);
     });
   }
 
+  private hanlderErro(message: string): void {
+    this.sharedService.alertDanger(message);
+  }
 }
