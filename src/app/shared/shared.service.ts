@@ -13,18 +13,28 @@ export class SharedService {
 
   constructor(private modalService: BsModalService) { }
 
-  public alertDanger(message?: string): void {
+  public alertDanger(message: string): void {
     this.showAlert(message, AlertTypes.DANGER);
   }
 
-  public alertSuccess(message?: string): void {
-    this.showAlert(message, AlertTypes.SUCCESS);
+  public alertSuccess(message: string): void {
+    this.showAlert(message, AlertTypes.SUCCESS, 3000);
   }
 
-  private showAlert(message?: string, type: AlertTypes): void {
-    this.bsModalRef = this.modalService.show(AlertModalComponent);
+  public alertWarning(message: string): void {
+    this.showAlert(message, AlertTypes.WARNING);
+  }
 
-    this.bsModalRef.content.type = type;
+  private showAlert(message: string, type: AlertTypes, timeOut?: number): void {
+    this.bsModalRef = this.modalService.show(AlertModalComponent, {class: 'modal-lg'});
+
+    if (timeOut) {
+      setTimeout(() => {
+        this.bsModalRef.hide();
+      }, timeOut);
+    }
+
+    this.bsModalRef.content.type = type || AlertTypes.SECONDARY;
     this.bsModalRef.content.message = message || 'Erro tente novamente';
   }
 

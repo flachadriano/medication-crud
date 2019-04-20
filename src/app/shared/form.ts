@@ -1,4 +1,5 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Medication } from '../medicamentos/medication';
 
 export class Form {
 
@@ -9,19 +10,18 @@ export class Form {
     formBuilder: FormBuilder
   ) {
     this.builder = formBuilder;
-    this.createForm();
   }
 
   public actionForm(): FormGroup {
     return this._actionForm;
   }
 
-  private createForm() {
+  public createForm(form: Medication): void {
     this._actionForm = this.builder.group({
-      id: '',
-      name: [null, Validators.required],
-      dosage: [null, Validators.required],
-      due_date: [null, Validators.required]
+      id: [form.id],
+      name: [form.name, Validators.required],
+      dosage: [form.dosage, Validators.required],
+      due_date: [form.due_date, Validators.required]
     });
   }
 

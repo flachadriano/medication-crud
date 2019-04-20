@@ -1,4 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
 import { Subscription } from 'rxjs';
 
 import { Medication } from '../medication';
@@ -14,16 +16,21 @@ export class MedicamentosListaComponent implements OnInit, OnDestroy {
   public selectedAll: any;
   public sub: Subscription;
   public loading: boolean;
-  private check: Array<number | string>;
+  public noregister: boolean;
+
+  private check: Array<number |string>;
   private _medication: Array<Medication>;
 
   constructor(
     private medicationService: MedicationService,
+    private router: Router,
+    private activeRoute: ActivatedRoute,
     private sharedService: SharedService
   ) {
     this._medication = [];
     this.check = [];
     this.loading = false;
+    this.noregister = true;
   }
 
   public ngOnInit(): void {
@@ -39,10 +46,9 @@ export class MedicamentosListaComponent implements OnInit, OnDestroy {
   }
 
   public selectAll(): void {
-    this._medication.forEach(val => {
+    for (const val of this._medication) {
       val.selected = this.selectedAll;
-      console.log(val.selected);
-    });
+    }
   }
 
   public checkIfAllSelected(): void {
@@ -51,20 +57,28 @@ export class MedicamentosListaComponent implements OnInit, OnDestroy {
     });
   }
 
-  public removeItem(): void {
+  public onDelete(): void {
     this.check = this._medication.filter(item => {
       return item.selected === true;
     }).map(val => val.id);
 
-    console.log(this.check);
+    this.medicationService.removeMedication(this.check).subscribe(val => {
+      this.onRequest();
+    }, (erro) => {
+      this.hanlderErro(erro);
+    });
+  }
+
+  public onEdit(id: any): void {
+    this.router.navigate(['edit', id], { relativeTo: this.activeRoute});
   }
 
   private onRequest(): void {
-    this.sub =  this.medicationService.getAllMedication().subscribe(med => {
+    this.sub = this.medicationService.getAllMedication().subscribe(med => {
       this._medication = med;
       this.loading = true;
+      this.noregister = !!this.medication.length;
     }, (erro) => {
-      console.log(erro);
       this.loading = true;
       this.hanlderErro(erro);
     });
@@ -73,4 +87,5 @@ export class MedicamentosListaComponent implements OnInit, OnDestroy {
   private hanlderErro(message: string): void {
     this.sharedService.alertDanger(message);
   }
+
 }

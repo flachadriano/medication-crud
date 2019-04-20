@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { MedicamentosListaComponent } from './medicamentos-lista/medicamentos-lista.component';
 import { MedicationFormComponent } from './medication-form/medication-form.component';
+import { MedicationResolverGuard } from './guards/medication-resolver.guard';
 
 const routes: Routes = [
   {
@@ -11,11 +12,17 @@ const routes: Routes = [
   },
   {
     path: 'new',
-    component: MedicationFormComponent
+    component: MedicationFormComponent,
+    resolve: {
+      medication: MedicationResolverGuard
+    }
   },
   {
     path: 'edit/:id',
-    component: MedicationFormComponent
+    component: MedicationFormComponent,
+    resolve: {
+      medication: MedicationResolverGuard
+    }
   }
 ];
 

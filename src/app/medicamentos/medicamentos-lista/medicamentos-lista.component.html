@@ -9,20 +9,20 @@
           <span class="mr-1">Add</span>
           <i class="fa fa-plus" aria-hidden="true"></i>
         </button>
-        <button class="btn btn-outline-light text-upercase" (click)="removeItem()">
+        <button class="btn btn-outline-light text-upercase" (click)="onDelete()">
           <span class="mr-1">Delete</span>
           <i class="fa fa-trash" aria-hidden="true"></i>
         </button>
       </div>
     </div>
     <div class="card-body">
-      <table class="table table-striped" [hidden]="!loading">
+      <table class="table table-striped" [hidden]="!medication.length">
         <thead>
           <tr>
             <th scope="col">
               <div class="checkbox">
                 <label>
-                    All
+                  All
                   <input type="checkbox" [(ngModel)]="selectedAll" (change)="selectAll();">
                   <span class="cr"><i class="cr-icon fa fa-check" aria-hidden="true"></i></span>
                 </label>
@@ -48,7 +48,7 @@
             <td>{{ item.dosage }}</td>
             <td>{{ item.due_date }}</td>
             <td>
-              <button class="btn btn-warning mr-1">
+              <button class="btn btn-warning mr-1" (click)="onEdit(item.id)">
                 <span class="mr-1">Edit</span>
                 <i class="fa fa-pencil-square" aria-hidden="true"></i>
               </button>
@@ -64,6 +64,10 @@
       <div class="text-center text-primary" [hidden]="loading">
         <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
         <span class="d-block mt-1">Carregando Lista de Medicamentos... </span>
+      </div>
+
+      <div class="alert alert-info text-center" role="alert" [hidden]="noregister">
+        <strong><i class="fa fa-info-circle" aria-hidden="true"></i></strong> Não há registros disponiveis
       </div>
 
     </div>

@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable, throwError, forkJoin } from 'rxjs';
-import { catchError, map, concatAll, delay } from 'rxjs/operators';
+import { catchError, map, concatAll, delay, take } from 'rxjs/operators';
 
 import { Medication } from './medication';
 import { environment } from 'src/environments/environment';
@@ -20,8 +20,15 @@ export class MedicationService {
   public getAllMedication(): Observable<Array<Medication>> {
     return this.http.get<Array<Medication>>(this.URI, { responseType: 'json' })
       .pipe(
-        delay(2000),
-        map(res => res),
+        delay(1000),
+        catchError(this.handleError)
+      );
+  }
+
+  public getMedicationBy(id: string): Observable<Medication> {
+    return this.http.get<Medication>(`${this.URI}/${id}`, { responseType: 'json' })
+      .pipe(
+        take(1),
         catchError(this.handleError)
       );
   }
@@ -40,9 +47,9 @@ export class MedicationService {
       );
   }
 
-  public removeMedication(ids: Array<string>): Observable<Array<string>> {
-    return <Observable<Array<string>>>forkJoin(
-      ids.map(id => <Observable<Array<string>>>this.http.delete(`${this.URI}/${id}`, { responseType: 'json' }))
+  public removeMedication(ids: Array<number | string>): Observable<Array<number | string>> {
+    return <Observable<Array<number | string>>>forkJoin(
+      ids.map(id => <Observable<Array<number | string>>>this.http.delete(`${this.URI}/${id}`, { responseType: 'json' }))
     ).pipe(
       concatAll(),
       catchError(this.handleError)

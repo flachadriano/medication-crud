@@ -1,7 +1,13 @@
+import { FormBuilder, ValidationErrors, FormGroup } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, ValidationErrors } from '@angular/forms';
+import { Location } from '@angular/common';
+import { map, switchMap } from 'rxjs/operators';
 
 import { Form } from '../../shared/form';
+import { MedicationService } from '../medication.service';
+import { SharedService } from '../../shared/shared.service';
+import { ActivatedRoute } from '@angular/router';
+import { Medication } from '../medication';
 
 @Component({
   selector: 'app-medication-form',
@@ -14,30 +20,66 @@ export class MedicationFormComponent implements OnInit {
   private _formMedication: Form;
 
   constructor(
-    private formBuilder: FormBuilder
+    private medicationService: MedicationService,
+    private sharedService: SharedService,
+    private formBuilder: FormBuilder,
+    private location: Location,
+    private activeRoute: ActivatedRoute
   ) {
     this.submitted = false;
     this._formMedication = new Form(this.formBuilder);
   }
 
-  ngOnInit() {
+  public ngOnInit(): void {
+    const formMedication = this.activeRoute.snapshot.data['medication'];
+    this._formMedication.createForm(formMedication);
   }
 
-  public get formMedication() {
+  public get formMedication(): FormGroup {
     return this._formMedication.actionForm();
   }
 
   public hasError(field: string): ValidationErrors {
-    console.log(field, 'ValidationErrors')
     return this._formMedication.actionForm().get(field).errors;
   }
 
   public onSubmit(): void {
+    const form: Medication = this._formMedication.actionForm().value;
     this.submitted = true;
-    console.log(this._formMedication.actionForm().value);
+
+    !form.id ? this.addMedication(form) : this.updateMedication(form);
   }
 
   public onCancel(): void {
     this._formMedication.actionForm().reset();
   }
+
+  private addMedication(form: Medication) {
+
+    this.medicationService.addMedication(form).subscribe(val => {
+      this.sharedService.alertSuccess('Salvo com Sucesso. Você séra redirecionando para lista em 3 Segundos');
+      this.timer();
+    }, erro => {
+      this.sharedService.alertDanger(erro);
+    });
+
+  }
+
+  private updateMedication(form: Medication) {
+
+    this.medicationService.updateMedication(form).subscribe(val => {
+      this.sharedService.alertSuccess('Atualizado com Sucesso. Você séra redirecionando para lista em 3 Segundos');
+      this.timer();
+    }, erro => {
+      this.sharedService.alertDanger(erro);
+    });
+
+  }
+
+  private timer(): void {
+    setTimeout(() => {
+      this.location.back();
+    }, 3000);
+  }
+
 }
