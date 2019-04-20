@@ -1,0 +1,16 @@
+{
+  "medication": [
+    {
+      "id": 1,
+      "name": "ASS",
+      "dosage": "tablet",
+      "due_date": "20/06/2019"
+    },
+    {
+      "id": 2,
+      "name": "Water",
+      "dosage": "ml",
+      "due_date": "22/10/2021"
+    }
+  ]
+}
