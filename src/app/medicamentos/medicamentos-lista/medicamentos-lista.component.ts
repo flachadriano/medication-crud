@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Medication } from '../medication';
 import { MedicationService } from '../medication.service';
 import { SharedService } from 'src/app/shared/shared.service';
+import { Cols } from '../cols';
 @Component({
   selector: 'app-medicamentos-lista',
   templateUrl: './medicamentos-lista.component.html',
@@ -39,6 +40,15 @@ export class MedicamentosListaComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this.sub.unsubscribe();
+  }
+
+  public get cols(): Array<Cols> {
+    return [
+      { 'field': 'name', 'label': 'Name' },
+      { 'field': 'dosage', 'label': 'Dosage' },
+      { 'field': 'due_date', 'label': 'Due date' },
+      { 'field': 'actions', 'label': 'Actions' }
+    ];
   }
 
   public get medication(): Array<Medication> {

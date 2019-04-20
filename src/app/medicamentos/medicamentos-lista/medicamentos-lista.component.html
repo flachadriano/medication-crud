@@ -21,18 +21,15 @@
           <tr>
             <th scope="col">
               <div class="checkbox">
-                <label>
-                  All
+                <label>All
                   <input type="checkbox" [(ngModel)]="selectedAll" (change)="selectAll();">
                   <span class="cr"><i class="cr-icon fa fa-check" aria-hidden="true"></i></span>
                 </label>
               </div>
             </th>
-            <th scope="col">Name</th>
-            <th scope="col">Dosage</th>
-            <th scope="col">Due date</th>
-            <th scope="col">Actions</th>
+            <th scope="col" *ngFor="let item of cols">{{item.label}}</th>
           </tr>
+
         </thead>
         <tbody>
           <tr *ngFor="let item of medication">
@@ -51,10 +48,6 @@
               <button class="btn btn-warning mr-1" (click)="onEdit(item.id)">
                 <span class="mr-1">Edit</span>
                 <i class="fa fa-pencil-square" aria-hidden="true"></i>
-              </button>
-              <button class="btn btn-danger">
-                <span class="mr-1">Delete</span>
-                <i class="fa fa-trash" aria-hidden="true"></i>
               </button>
             </td>
           </tr>
