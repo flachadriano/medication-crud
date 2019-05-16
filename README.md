@@ -18,7 +18,7 @@ So, it is necessary to create an application that helps the user with this need.
 
 1. The application must not persist the records on backend;
 
-1. The grid mode must be created dynamically, the columns of the grid must not be directly on HTML, the columns must be rendered based in an array, similar to this: [{field: 'name', label: 'Name'}, {field: 'dosage', label: 'Dosage'}, {field: 'due_date', label: 'Due date'}]. If more configuration is needed you can add it. This array can be declared anywhere.
+1. The grid mode must be a component, the columns must be rendered based in an array, similar to this: [{field: 'name', label: 'Name'}, {field: 'dosage', label: 'Dosage'}, {field: 'due_date', label: 'Due date'}]. If more configuration is needed you can add it. This array must be received as parameter by the component.
 
 ## Expected result
 
@@ -72,7 +72,7 @@ Então, é necessário criar uma aplicação para auxiliar nesta necessidade.
 
 1. A aplicação não deve persistir dados no backend;
 
-1. A grid apresentada na visualização em modo grid deve ser criada dinamicamente, as colunas da grid não devem ser descritas diretamente no HTML, as colunas devem ser renderizadas baseado em um array similar a este: [{field: 'name', label: 'Name'}, {field: 'dosage', label: 'Dosage'}, {field: 'due_date', label: 'Due date'}]. Podem ser adicionadas mais configurações, caso forem necessárias. Este array pode estar declarado em qualquer lugar do código fonte.
+1. A grid apresentada na visualização em modo grid deve ser um componente, as colunas devem ser renderizadas baseado em um array similar a este: [{field: 'name', label: 'Name'}, {field: 'dosage', label: 'Dosage'}, {field: 'due_date', label: 'Due date'}]. Podem ser adicionadas mais configurações, caso forem necessárias. Este array deve ser recebido como parâmetro pelo componente.
 
 ## Expected result
 
