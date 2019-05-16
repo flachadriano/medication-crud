@@ -68,7 +68,7 @@ Então, é necessário criar uma aplicação para auxiliar nesta necessidade.
 
 ## Requisitos tecnológicos
 
-1. A aplicação deve ser criada utilizando um framework frontend (nenhum framework específico, além do jQuery);
+1. A aplicação deve ser criada utilizando um framework frontend, a exceção do JQuery (nenhum framework específico);
 
 1. A aplicação não deve persistir dados no backend;
 
